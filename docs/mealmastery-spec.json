@@ -1,0 +1,1600 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "title":"mealmastery kitchen app",
+      "version":"1.0",
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    
+    "servers": [
+      {"url": "http://127.0.0.1:5000/api/v1", "description": "development"},{
+        "url": "http://localhost:5000/api/v1", "description": "development-lhost"
+      }
+    ],
+    "paths": {
+      "/users/register":{
+        "post":{
+          "description": "register user",
+          "summary": "register user",
+          "tags": ["users"],
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "username":{
+                      "example": "new username"
+                    },
+                    "email":{
+                      "example": "example@mail.com"
+                    },
+                    "password":{
+                      "example":"newPassword"
+                    },
+                    "gender":{
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201":{
+              "description": "register users",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "example": "success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "user-fheruwfhre"
+                          },
+                          "username":{
+                            "example": "newUsername"
+                          },
+                          "role":{
+                            "example": "USER"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "internal server error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{userId}":{
+        "get":{
+          "summary": "get specified user by id",
+          "parameters": [
+            {
+              "name": "userId",
+              "required": true,
+              "in": "path",
+              "schema":{
+                "example":"user-OWBp9E5HPuLdl2eE"
+              }
+            }
+          ],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "tags": ["users"],
+          "responses": {
+            "200":{
+              "description": "get user specified",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "properties": {
+                      "status":{},
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example":"user-OWBp9E5HPuLdl2eE"
+                          },
+                          "username":{
+                            "example":"MISNO SUGIANTO"
+                          },
+                          "email":{
+                            "example":"user@mail.com"
+                          },
+                          "gender":{
+                            "example":true
+                          },
+                          "profilePictureUrl":{
+                            "example":"/uploads/profilePicture-83485463925.png"
+                          },
+                          "role":{
+                            "example":"USER"
+                          },
+                          "createdAt":{
+                            "example":"2024-06-14T19:23:48.169Z"
+                          },
+                          "updatedAt":{
+                            "example":"2024-06-15T19:23:48.169Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "403":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/forbidden"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch":{
+          "tags": ["users"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "userId",
+              "required": true,
+              "in": "path",
+              "schema":{
+                "example":"user-OWBp9E5HPuLdl2eE"
+              }
+            }
+          ],
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "username":{
+                      "example": "new Username"
+                    },
+                    "gender":{
+                      "example": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "get user specified",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "example": "success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example":"user-OWBp9E5HPuLdl2eE"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "403":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/forbidden"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{userId}/avatar":{
+        "patch":{
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "tags": ["users"],
+          "description": "update user profile Picture ",
+          "parameters": [
+            {
+              "name": "userId",
+              "description": "user ID to update picture",
+              "in": "path",
+              "required": true ,
+              "schema":{
+                "type": "string",
+                "example": "user-_VeKiMB0lRMc76lu"
+              }
+            }
+          ],
+          "requestBody":{
+            "required": false,
+            "content": {
+              "multipart/form-data":{
+                "schema":{
+                  "properties": {
+                    "profilePicture":{
+                      "format": "base64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "update user avatar by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "properties": {
+                      "id":{
+                        "example":"user-_VeKiMB0lRMc76lu"
+                      },
+                      "profilePictureUrl":{
+                        "example":"/uploads/profilePicture-456765354.png"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{userId}/change-password":{
+        "patch":{
+          "tags": ["users"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "userId",
+              "description": "user ID to update password",
+              "in": "path",
+              "required": true ,
+              "schema":{
+                "type": "string",
+                "example": "user-awenwefhubwer75t6"
+              }
+            }
+          ],
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "oldPassword":{
+                      "type": "string",
+                      "example":"Edu"
+                    },
+                    "newPassword":{
+                      "type": "string",
+                      "example":"newEdu"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "update password by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "user-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{userId}/change-email":{
+        "patch":{
+          "tags": ["users"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "userId",
+              "description": "user ID to update email",
+              "in": "path",
+              "required": true ,
+              "schema":{
+                "type": "string",
+                "example": "user-awenwefhubwer75t6"
+              }
+            }
+          ],
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "oldEmail":{
+                      "type": "string",
+                      "example":"Edu@mail.com"
+                    },
+                    "newEmail":{
+                      "type": "string",
+                      "example":"newEdu@mail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "update email by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "user-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{userId}/delete-user":{
+        "patch":{
+          "tags": ["admin"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "userId",
+              "description": "user ID to update is_delete",
+              "in": "path",
+              "required": true ,
+              "schema":{
+                "type": "string",
+                "example": "user-awenwefhubwer75t6"
+              }
+            }
+          ],
+          "responses": {
+            "200":{
+              "description": "update is_delete user by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "userId":{
+                            "example": "user-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/login":{
+        "post":{
+          "tags": ["auth"],
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "email":{
+                      "example": "user@mail.com"
+                    },
+                    "password":{
+                      "example": "newUserPassword"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201":{
+              "description": "login user",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "example": "success"
+                      },
+                      "message":{
+                        "example": "login successfully"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "userId":{
+                            "example":"user-OWBp9E5HPuLdl2eE"
+                          },
+                          "username":{
+                            "example":"MISNO SUGIANTO"
+                          },
+                          "role":{
+                            "example":"USER"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "internal server error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/logout":{
+        "delete":{
+          "tags": ["auth"],
+          "requestBody":{
+            "content": {}
+          },
+          "responses": {
+            "200":{
+              "description": ""
+            }
+          }
+        }
+      },
+      "/category":{},
+      "/category/{categoryId}":{},
+      "/ingredients":{
+        "get":{
+          "tags": ["ingredients"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "summary": "get all ingredients",
+          "responses": {
+            "200":{
+              "description": "get all ingredients",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "array",
+                        "minItems": 2,
+                        "items":{
+                          "type": "object",
+                          "properties": {
+                            "id":{
+                              "example":"ingredient-vdCpHzM__YhWJI1H"
+                            },
+                            "name":{
+                              "example":"Sauce"
+                            },
+                            "unit":{
+                              "example":"pcs"
+                            },
+                            "quantity":{
+                              "type": "integer",
+                              "example":1
+                            },
+                            "createdAt":{
+                              "example":"2024-06-14T19:26:05.791Z"
+                            },
+                            "updatedAt":{
+                              "example":"2024-06-17T19:26:05.791Z"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post":{
+          "tags": ["admin"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "summary": "add ingredients",
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "name":{},
+                    "unit":{},
+                    "quantity":{
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "add ingredient",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "ingredient-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "403":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/forbidden"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/ingredients/{ingredientId}":{
+        "patch":{
+          "summary": "update ingredient by id",
+          "tags": ["admin"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "ingredientId",
+              "description": "ingredient ID to update ingredient",
+              "in": "path",
+              "required": true ,
+              "schema":{
+                "type": "string",
+                "example": "ingredient-awenwefhubwer75t6"
+              }
+            }
+          ],
+          "requestBody":{
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "name":{
+                      "example":"Sugar"
+                    },
+                    "unit":{
+                      "example":"sdm"
+                    },
+                    "quantity":{
+                      "example":2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "update ingredient by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "ingredient-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete":{
+          "tags": ["admin"],
+          "summary": "delete ingredient by id",
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "ingredientId",
+              "description": "ingredient ID to update ingredient",
+              "in": "path",
+              "required": true ,
+              "schema":{
+                "type": "string",
+                "example": "ingredient-awenwefhubwer75t6"
+              }
+            }
+          ],
+          "responses": {
+            "200":{
+              "description": "update ingredient by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "ingredient-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "id not found",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/videos":{},
+      "/videos/{videoId}":{},
+      "/recipes":{
+        "get":{
+          "tags": ["recipes"],
+          "summary": "get all recipes",
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "schema":{
+                "example":1
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "schema":{
+                "example":10
+              }
+            },
+            {
+              "name": "categoryName",
+              "in": "query",
+              "schema":{
+                "example":"Lunch"
+              }
+            },
+            {
+              "name": "recipeName",
+              "in": "query",
+              "schema":{
+                "example":"Ayam"
+              }
+            }
+          ],
+          "responses": {
+            "200":{
+              "description": "get recipes",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "array",
+                        "minItems": 2,
+                        "items":{
+                          "type": "object",
+                          "properties": {
+                            "id":{
+                              "example": "recipe-adwesdgawe7rt"
+                            },
+                            "name":{
+                              "example":"Nasi Goreng"
+                            },
+                            "description":{
+                              "example":"loremajsdhdhsidgcausdcv"
+                            },
+                            "cuisine":{
+                              "example":"Asian"
+                            },
+                            "instructions":{
+                              "example":"loremasascasdvcs"
+                            },
+                            "recipePictureurl":{
+                              "example":"/uploads/recipePicture-17739440.png"
+                            },
+                            "ingredients":{
+                              "type": "array",
+                              "minItems": 2,
+                              "items":{
+                                "type": "object",
+                                "properties": {
+                                  "name":{
+                                    "example":"Nasi"
+                                  },
+                                  "unit":{
+                                    "example":"kg"
+                                  },
+                                  "quantity":{
+                                    "example": 2
+                                  }
+                                }
+                              }
+                            },
+                            "categoryName":{
+                              "example":"Lunch"
+                            },
+                            "VideoName":{
+                              "example":"Nasi Goreng"
+                            },
+                            "links":{
+                              "type": "array",
+                              "minItems": 3,
+                              "items":{
+                                "type": "string",
+                                "example":"https://youtu.be/Js9FXCkn798"
+                              }
+                            },
+                            "favoriteCount":{
+                              "example":10
+                            },
+                            "createdAt":{
+                              "example":""
+                            },
+                            "updatedAt":{
+                              "example":""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post":{
+          "tags": ["admin"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "summary": "add recipe",
+          "requestBody":{
+            "required": false,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "name":{},
+                    "cuisine":{},
+                    "instructions":{},
+                    "categoryId":{},
+                    "videoId":{},
+                    "ingredientId":{
+                      "description": "field berulang, bisa menambah id lebih dari 1, disarankan minimal 2",
+                      "example":"ingredient-bcgcuafcrscfa"
+                    }
+                  }
+                }
+              },
+              "multipart/form-data":{
+                "schema":{
+                  "properties": {
+                    "recipePicture":{
+                      "format": "base64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200":{
+              "description": "update ingredient by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "type": "string",
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "recipe-adwesdgawe7rt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400":{
+              "description": "invalid payload",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/badRequest"
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recipes/{recipeId}":{
+        "get":{
+          "summary": "get recipe by id",
+          "tags": ["recipes"],
+          "security": [
+            {
+              "cookieAuth":[]
+            }
+          ],
+          "parameters": [
+            {
+              "name": "recipeId",
+              "required": true,
+              "description": "id for get recipe",
+              "in": "path",
+              "schema":{
+"example":"recipe-jecadvcjd"
+              }
+            }
+          ],
+          "responses": {
+            "200":{
+              "description": "get recipe by id",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "type": "object",
+                    "properties": {
+                      "status":{
+                        "example":"success"
+                      },
+                      "data":{
+                        "type": "object",
+                        "properties": {
+                          "id":{
+                            "example": "recipe-adwesdgawe7rt"
+                          },
+                          "name":{
+                            "example":"Nasi Goreng"
+                          },
+                          "description":{
+                            "example":"loremajsdhdhsidgcausdcv"
+                          },
+                          "cuisine":{
+                            "example":"Asian"
+                          },
+                          "instructions":{
+                            "example":"loremasascasdvcs"
+                          },
+                          "recipePictureurl":{
+                            "example":"/uploads/recipePicture-17739440.png"
+                          },
+                          "ingredients":{
+                            "type": "array",
+                            "minItems": 2,
+                            "items":{
+                              "type": "object",
+                              "properties": {
+                                "name":{
+                                  "example":"Nasi"
+                                },
+                                "unit":{
+                                  "example":"kg"
+                                },
+                                "quantity":{
+                                  "example": 2
+                                }
+                              }
+                            }
+                          },
+                          "categoryName":{
+                            "example":"Lunch"
+                          },
+                          "VideoName":{
+                            "example":"Nasi Goreng"
+                          },
+                          "links":{
+                            "type": "array",
+                            "minItems": 3,
+                            "items":{
+                              "type": "string",
+                              "example":"https://youtu.be/Js9FXCkn798"
+                            }
+                          },
+                          "favoriteCount":{
+                            "example":10
+                          },
+                          "createdAt":{
+                            "example":""
+                          },
+                          "updatedAt":{
+                            "example":""
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/unauthorized"
+                  }
+                }
+              }
+            },
+            "404":{
+              "description": "unauthorized",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/notFound"
+                  }
+                }
+              }
+            },
+            "500":{
+              "description": "oops, something error",
+              "content": {
+                "application/json":{
+                  "schema":{
+                    "$ref": "#/components/schemas/internalServerError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch":{
+          "tags": ["admin"]
+        },
+        "delete":{
+          "tags": ["admin"]
+        }
+      },
+      "/favorites":{},
+      "/favorites/{favoriteId}":{},
+      "/groceries":{},
+      "/groceries/{groceryId}":{}
+    },
+    "components": {
+      "schemas": {
+        "badRequest":{
+          "type": "object",
+          "properties": {
+            "status":{
+              "example":"fail"
+            },
+            "message":{
+              "example": "invalid paylaod"
+            }
+          }
+        },
+        "unauthorized":{
+          "type": "object",
+          "properties": {
+            "status":{
+              "example":"fail"
+            },
+            "message":{
+              "example": "unauthorized"
+            }
+          }
+        },
+        "forbidden":{
+          "type": "object",
+          "properties": {
+            "status":{
+              "example":"fail"
+            },
+            "message":{
+              "example": "forbidden"
+            }
+          }
+        },
+        "notFound":{
+          "type": "object",
+          "properties": {
+            "status":{
+              "example":"fail"
+            },
+            "message":{
+              "example": "id not found"
+            }
+          }
+        },
+        "internalServerError":{
+          "type": "object",
+          "properties": {
+            "status":{
+              "example":"fail"
+            },
+            "message":{
+              "example": "internal server error"
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "cookieAuth":{
+          "type": "apiKey",
+          "in": "cookie",
+          "name": "meal_mastery"
+        }
+      }
+    }
+  }
